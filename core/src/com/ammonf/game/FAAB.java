@@ -7,6 +7,13 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class FAAB extends ApplicationAdapter {
+    // static so it is a class variable; a global one
+    // shared by all instances of the class
+	public static final int WIDTH = 480;
+    public static final int HEIGHT = 800;
+
+    public static final String TITLE = "Fwee As A Boyd";
+
 	SpriteBatch batch;
 	Texture img;
 	
