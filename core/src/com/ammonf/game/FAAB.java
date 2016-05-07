@@ -1,6 +1,7 @@
 package com.ammonf.game;
 
 import com.ammonf.game.states.GameStateManager;
+import com.ammonf.game.states.MenuState;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
@@ -26,6 +27,8 @@ public class FAAB extends ApplicationAdapter {
 		//img = new Texture("badlogic.jpg");
 
         Gdx.gl.glClearColor(1, 0, 0, 1); // Wipes screen for redraw
+
+        gsm.push(new MenuState(gsm));
 	}
 
 	@Override
