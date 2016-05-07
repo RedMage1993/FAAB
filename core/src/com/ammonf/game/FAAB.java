@@ -1,5 +1,6 @@
 package com.ammonf.game;
 
+import com.ammonf.game.states.GameStateManager;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
@@ -14,21 +15,31 @@ public class FAAB extends ApplicationAdapter {
 
     public static final String TITLE = "Fwee As A Boyd";
 
-	SpriteBatch batch;
-	Texture img;
+    private GameStateManager gsm;
+    private SpriteBatch batch;
+    //Texture img;
 	
 	@Override
 	public void create () {
+        gsm = new GameStateManager();
 		batch = new SpriteBatch();
-		img = new Texture("badlogic.jpg");
+		//img = new Texture("badlogic.jpg");
+
+        Gdx.gl.glClearColor(1, 0, 0, 1); // Wipes screen for redraw
 	}
 
 	@Override
 	public void render () {
-		Gdx.gl.glClearColor(1, 0, 0, 1);
+        // Need to make gamestatemanager update before anything below executes
+        // Moving glClearColor to create()
+		//Gdx.gl.glClearColor(1, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		batch.begin();
-		batch.draw(img, 0, 0);
-		batch.end();
+
+        // getDeltaTime provides float: dt
+        gsm.update(Gdx.graphics.getDeltaTime());
+        gsm.render(batch);
+		//batch.begin();
+		//batch.draw(img, 0, 0);
+		//batch.end();
 	}
 }
