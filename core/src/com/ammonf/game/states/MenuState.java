@@ -1,5 +1,6 @@
 package com.ammonf.game.states;
 
+import com.ammonf.game.FAAB;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
@@ -31,6 +32,15 @@ public class MenuState extends State {
 
     @Override
     public void render(SpriteBatch sb) {
+        sb.begin(); // Open box up
 
+        // Drawing begins from bottom-left
+        sb.draw(background, 0, 0, FAAB.WIDTH, FAAB.HEIGHT);
+        // Dim of button used without specification
+        // Centered; using bit shifting instead of division
+        sb.draw(playButton, (FAAB.WIDTH >> 1) - (playButton.getWidth() >> 1),
+                (FAAB.HEIGHT >> 1) - (playButton.getHeight() >> 1));
+
+        sb.end();
     }
 }
