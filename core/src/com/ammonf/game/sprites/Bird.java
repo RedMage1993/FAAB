@@ -41,7 +41,7 @@ public class Bird  {
         return position;
     }
 
-    public Texture getBird() {
+    public Texture getTexture() {
         return bird;
     }
 }
