@@ -12,7 +12,7 @@ public class PlayState extends State {
 
     protected PlayState(GameStateManager gsm) {
         super(gsm);
-        bird = new Bird(50, 100); //Texture("bird-good1.png");
+        bird = new Bird(50, 300); //Texture("bird-good1.png");
     }
 
     @Override

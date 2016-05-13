@@ -27,14 +27,13 @@ public class Bird  {
 
     // update to send delta time to bird class and allow calculations
     public void update(float dt) {
-        // Use velocity.add and velocity.scale to modify velocity
-        // Probably 1/dt to slow down movement in a direction rather than
-        // gravity's effect of increasing (until terminal velocity)
+        // Use velocity.add and velocity.scale to adjust velocity
+        // Use dt to correct based on FPS on machine
         //
         // position.sub(0, velocity.y, 0) will be for going up
         // add will be for going down
         //
-        // finish with velocity.scale(dt) to undo the 1/dt effect.
+        // finish with velocity.scale(1/dt) to undo the dt effect.
     }
 
     public Vector3 getPosition() {
