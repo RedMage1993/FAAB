@@ -1,6 +1,7 @@
 package com.ammonf.game.states;
 
 import com.ammonf.game.FAAB;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
@@ -22,12 +23,15 @@ public class MenuState extends State {
     // protected -> public
     @Override
     public void handleInput() {
-        
+        if (Gdx.input.justTouched()) {
+            gsm.set(new PlayState(gsm)); // put PlayState at top of stack
+            dispose(); // Not using background/playbutton so free them
+        }
     }
 
     @Override
     public void update(float dt) {
-
+        handleInput(); // always checking input to see if user did anything
     }
 
     @Override
