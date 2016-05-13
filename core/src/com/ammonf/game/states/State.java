@@ -29,4 +29,6 @@ public abstract class State {
     public abstract void update(float dt);
     // sb is container for everything (textures) for rendering to the screen
     public abstract void render(SpriteBatch sb);
+    // destructor; where we release texture memory
+    public abstract void dispose();
 }
