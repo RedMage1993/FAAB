@@ -1,5 +1,6 @@
 package com.ammonf.game.sprites;
 
+import com.ammonf.game.FAAB;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector3;
 
@@ -33,21 +34,40 @@ public class Bird  {
     public void update(float dt) {
         // Use velocity.add and velocity.scale to adjust velocity
         // Use dt to correct based on FPS on machine
-        velocity.scl(dt);
-        // To update the Bird's position
-        position.add(0, velocity.y, 0);
-        // finish with velocity.scale(1/dt) to undo the dt effect.
-        velocity.scl(1/dt);
 
-        // Make sure it's whole again for friction to work correctly
-        velocity.y = Math.round(velocity.y);
+        // Only allow movement if within bounds
+        if ((velocity.y < 0 && position.y > 0) ||
+                (velocity.y > 0 && ((position.y + bird.getHeight()) < (FAAB.HEIGHT >> 1)))) {
+            velocity.scl(dt);
+            // To update the Bird's position
+            position.add(0, velocity.y, 0);
+
+            // Apply bounds within viewport
+            /*if (position.y > 300 + 400) {
+                position.y = 700;
+            }
+
+            if (position.y < 300 - 400) {
+                position.y = 300;
+            }*/
+
+            // finish with velocity.scale(1/dt) to undo the dt effect.
+            velocity.scl(1 / dt);
+
+            // Make sure it's whole again for friction to work correctly
+            velocity.y = Math.round(velocity.y);
+        } else {
+            // Cannot move, so skip to allowing new movement
+            velocity.y = 0;
+            moving = false;
+        }
 
         // apply friction
         if (velocity.y != 0) {
             if (velocity.y > 0) {
-                velocity.y -= 25;
+                //velocity.y -= 5;
             } else {
-                velocity.y += 25;
+                //velocity.y += 5;
             }
         } else {
             if (moving) {
