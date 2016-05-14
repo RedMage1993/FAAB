@@ -38,21 +38,21 @@ public class Bird  {
         // Only allow movement if within bounds
         if ((velocity.y < 0 && position.y > 0) ||
                 (velocity.y > 0 && ((position.y + bird.getHeight()) < (FAAB.HEIGHT >> 1)))) {
-            velocity.scl(dt);
+            //velocity.scl(dt);
             // To update the Bird's position
             position.add(0, velocity.y, 0);
 
             // Apply bounds within viewport
-            /*if (position.y > 300 + 400) {
-                position.y = 700;
+            if (position.y > 300 + (((10 + 1) * 10) / 2)) {
+                position.y = 300 + (((10 + 1) * 10) / 2);
             }
 
-            if (position.y < 300 - 400) {
-                position.y = 300;
-            }*/
+            if (position.y < 300 - (((10 + 1) * 10) / 2)) {
+                position.y = 300 - (((10 + 1) * 10) / 2);
+            }
 
             // finish with velocity.scale(1/dt) to undo the dt effect.
-            velocity.scl(1 / dt);
+            //velocity.scl(1 / dt);
 
             // Make sure it's whole again for friction to work correctly
             velocity.y = Math.round(velocity.y);
@@ -65,9 +65,9 @@ public class Bird  {
         // apply friction
         if (velocity.y != 0) {
             if (velocity.y > 0) {
-                //velocity.y -= 5;
+                velocity.y -= 1;
             } else {
-                //velocity.y += 5;
+                velocity.y += 1;
             }
         } else {
             if (moving) {
@@ -92,12 +92,12 @@ public class Bird  {
     }
 
     public void ascend() {
-        velocity.y = 400;
+        velocity.y = 10;
         moving = true;
     }
 
     public void descend() {
-        velocity.y = -400;
+        velocity.y = -10;
         moving = true;
     }
 }
