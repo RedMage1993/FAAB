@@ -2,6 +2,7 @@ package com.ammonf.game.sprites;
 
 import com.ammonf.game.FAAB;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
 
@@ -18,8 +19,9 @@ public class Bird  {
     private Vector3 position; // holds an x,y,z axis (only using xy)
     private Vector3 velocity;
     private Rectangle bounds;
+    private  Animation birdAnimation;
 
-    private Texture bird;
+    private Texture birdFlying;
 
     private boolean moving;
 
@@ -28,22 +30,25 @@ public class Bird  {
         position = new Vector3(x, y, 0);
         velocity = new Vector3(0, 0, 0); // so not moving
 
-        bird = new Texture("bird-good1.png");
+        birdFlying = new Texture("bird-flying-36.png");
+        birdAnimation = new Animation(new TextureRegion(birdFlying), 4, 0.5f);
 
         moving = false;
 
-        bounds = new Rectangle(x, y, bird.getWidth(), bird.getHeight());
+        bounds = new Rectangle(x, y, birdFlying.getWidth() / 4, birdFlying.getHeight());
     }
 
     // update to send delta time to bird class and allow calculations
     // TODO: Learn the mathematics, or the physics, required for motion below
     public void update(float dt) {
+        birdAnimation.update(dt);
+
         // Use velocity.add and velocity.scale to adjust velocity
         // Use dt to correct based on FPS on machine
         position.add(MOVEMENT * dt, 0, 0);
         // Only allow movement if within bounds
         if ((velocity.y < 0 && position.y > 0) ||
-                (velocity.y > 0 && ((position.y + bird.getHeight()) < (FAAB.HEIGHT >> 1)))) {
+                (velocity.y > 0 && ((position.y + birdFlying.getHeight()) < (FAAB.HEIGHT >> 1)))) {
             velocity.scl(dt);
             // To update the Bird's position
             position.add(0, velocity.y, 0);
@@ -89,8 +94,8 @@ public class Bird  {
         return position;
     }
 
-    public Texture getTexture() {
-        return bird;
+    public TextureRegion getTexture() {
+        return birdAnimation.getFrame();
     }
 
     // prevent continuous movement
@@ -120,7 +125,8 @@ public class Bird  {
     }
 
     public void dispose() {
-        bird.dispose();
+        birdFlying.dispose();
+        birdAnimation.dispose();
 
         position = null;
         velocity = null;
