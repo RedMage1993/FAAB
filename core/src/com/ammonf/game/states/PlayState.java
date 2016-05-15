@@ -198,7 +198,5 @@ public class PlayState extends State {
         balls = null;
         ip = null;
         rand = null;
-
-        System.gc(); // suggest garbage collect
     }
 }

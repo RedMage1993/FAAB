@@ -77,6 +77,7 @@ public abstract class Ball {
         ball.dispose();
 
         // Get rid of references
+        nextBallLevel = null;
         position = null;
         rand = null;
         bounds = null;
