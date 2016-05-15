@@ -39,7 +39,7 @@ public abstract class Ball {
 
     public boolean isShown() { return shown; }
 
-    public void reposition(int x) {
+    public void reposition(float x) {
         if (nextBallLevel.size == 0)
             nextBallLevel.addAll(LEVELS);
 

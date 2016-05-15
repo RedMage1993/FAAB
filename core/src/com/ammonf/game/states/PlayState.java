@@ -147,6 +147,17 @@ public class PlayState extends State {
     public void update(float dt) {
         handleInput();
         bird.update(dt);
+
+        for (Ball ball : balls) {
+            if (ball.isShown()) {
+                if (cam.position.x - (cam.viewportWidth / 2) > ball.getPosition().x +
+                        ball.getTexture().getWidth()) {
+                    ball.reposition(ball.getPosition().x +
+                            ((ball.getTexture().getWidth() + BALL_SPACING_HORI) * BALL_COUNT));
+
+                }
+            }
+        }
     }
 
     @Override
@@ -159,12 +170,10 @@ public class PlayState extends State {
         sb.draw(bird.getTexture(), bird.getPosition().x, bird.getPosition().y);
 
         // Render balls only if shown
-        for (int i = 0; i < BALL_COUNT; i++) {
-            for (int j = 0; j < 3; j++) {
-                if (balls.get((i * 3) + j).isShown()) {
-                    sb.draw(balls.get((i * 3) + j).getTexture(),
-                            balls.get((i * 3) + j).getPosition().x, balls.get((i * 3) + j).getPosition().y);
-                }
+        for (Ball ball : balls) {
+            if (ball.isShown()) {
+                sb.draw(ball.getTexture(),
+                        ball.getPosition().x, ball.getPosition().y);
             }
         }
 
