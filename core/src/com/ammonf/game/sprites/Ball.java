@@ -12,12 +12,13 @@ import java.util.Random;
 public abstract class Ball {
     // These are the possible locations for Ball
     private static final Integer LEVELS[] = {300, 355, 245};
-    private static Array<Integer> nextBallLevel;
+    private static Array<Integer> nextBallLevel = new Array<Integer>();
 
     protected Texture ball;
     private Vector2 position;
     private Random rand;
     private int level;
+    private boolean shown;
 
     protected Ball(int x, String spritePath) {
         ball = new Texture(spritePath);
@@ -36,12 +37,15 @@ public abstract class Ball {
         return position;
     }
 
+    public boolean isShown() { return shown; }
+
     public void reposition(int x) {
-        if (nextBallLevel == null)
-            nextBallLevel = new Array<Integer>();
-        else if (nextBallLevel.size == 0) {
+        if (nextBallLevel.size == 0)
             nextBallLevel.addAll(LEVELS);
-        }
+
+        // TODO: Can update to be random
+        // It would be better with a non-uniform dist
+        shown = true;//rand.nextBoolean();
 
         level = rand.nextInt(nextBallLevel.size);
         position = new Vector2(x, nextBallLevel.get(level));
