@@ -2,7 +2,6 @@ package com.ammonf.game.states;
 
 import com.ammonf.game.FAAB;
 import com.ammonf.game.sprites.BadBall;
-import com.ammonf.game.sprites.Ball;
 import com.ammonf.game.sprites.Bird;
 import com.ammonf.game.sprites.GoodBall;
 import com.badlogic.gdx.Gdx;
@@ -26,7 +25,11 @@ public class PlayState extends State {
     //private GoodBall goodBall; // Will generate certain random placement of either this
     //private BadBall badBall; // or this but whatever it is, good or empty required.
 
-
+    // TODO: Create Balls as necessary
+    // They will position themselves accordingly on the y-axis
+    // Require first Ball to be a GoodBall, shown/hidden
+    // The the next two can be GoodBall or BadBall, shown/hidden
+    // Repeat that BALL_COUNT times but push the x position with BALL_SPACING_HORI
 
     protected PlayState(GameStateManager gsm) {
         super(gsm);
