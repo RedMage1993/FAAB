@@ -32,4 +32,8 @@ public abstract class Ball {
     public Vector2 getPosition() {
         return position;
     }
+
+    public void reposition(int x) {
+        position.set(x, LEVELS[rand.nextInt(3)]);
+    }
 }
