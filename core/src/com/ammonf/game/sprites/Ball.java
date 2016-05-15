@@ -34,6 +34,9 @@ public abstract class Ball {
 
         // Choose a random location
         // RNG between 0 (inclusive) and 3 (exclusive)
+        position = new Vector2();
+        bounds = new Rectangle();
+
         reposition(x);
     }
 
@@ -56,10 +59,10 @@ public abstract class Ball {
         shown = true;//rand.nextBoolean();
 
         level = rand.nextInt(nextBallLevel.size);
-        position = new Vector2(x, nextBallLevel.get(level));
+        position.set(x, nextBallLevel.get(level));
         nextBallLevel.removeIndex(level);
 
-        bounds = new Rectangle(x, position.y, ball.getWidth(), ball.getHeight());
+        bounds.set(x, position.y, ball.getWidth(), ball.getHeight());
     }
 
     public boolean collides(Rectangle player) {
@@ -77,7 +80,5 @@ public abstract class Ball {
         position = null;
         rand = null;
         bounds = null;
-
-        System.gc();
     }
 }

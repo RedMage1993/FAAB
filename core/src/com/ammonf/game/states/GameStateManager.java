@@ -22,10 +22,12 @@ public class GameStateManager {
 
     public void pop() {
         states.pop().dispose();
+        System.gc();
     }
 
     public void set(State state) {
         states.pop().dispose();
+        System.gc();
         states.push(state);
     }
 

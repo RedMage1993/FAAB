@@ -61,11 +61,11 @@ public class Bird  {
         // Apply bounds within viewport
         // Formula for rate of 10 and friction of 1 is (((10 + 1) * 10) / 2)
         // Calculated to be 55, so 300 + 55 = 355 is where we want to stay below
-        if (position.y > 355) {
-            position.y = 355;
+        if (position.y > 350) {
+            position.y = 350;
             stopMoving(); // Need to avoid input lag at boundaries
-        } else if (position.y < 245) {
-            position.y = 245;
+        } else if (position.y < 250) {
+            position.y = 250;
             stopMoving();
         }
 
@@ -125,7 +125,5 @@ public class Bird  {
         position = null;
         velocity = null;
         bounds = null;
-
-        System.gc();
     }
 }
