@@ -48,10 +48,12 @@ public class Bird  {
             // Calculated to be 55, so 300 + 55 = 355 is where we want to stay below
             if (position.y > 355) {
                 position.y = 355;
-            }
-
-            if (position.y < 245) {
+                stopMoving(); // Need to avoid input lag at boundaries
+                return;
+            } else if (position.y < 245) {
                 position.y = 245;
+                stopMoving();
+                return;
             }
 
             // finish with velocity.scale(1/dt) to undo the dt effect.
@@ -61,8 +63,7 @@ public class Bird  {
             velocity.y = Math.round(velocity.y);
         } else {
             // Cannot move, so skip to allowing new movement
-            velocity.y = 0;
-            moving = false;
+            stopMoving();
         }
 
         // apply friction
@@ -102,5 +103,10 @@ public class Bird  {
     public void descend() {
         velocity.y = -400;
         moving = true;
+    }
+
+    private void stopMoving() {
+        velocity.y = 0;
+        moving = false;
     }
 }

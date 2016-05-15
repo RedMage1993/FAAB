@@ -1,8 +1,9 @@
 package com.ammonf.game.states;
 
 import com.ammonf.game.FAAB;
-import com.ammonf.game.sprites.Ball;
+import com.ammonf.game.sprites.BadBall;
 import com.ammonf.game.sprites.Bird;
+import com.ammonf.game.sprites.GoodBall;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
@@ -17,7 +18,8 @@ public class PlayState extends State {
     private Texture bg;
     private InputProcessor ip;
     private int lastKey;
-    //private Ball
+    private GoodBall goodBall; // Will generate certain random placement of either this
+    //private BadBall badBall; // or this but whatever it is, good or empty required.
 
     protected PlayState(GameStateManager gsm) {
         super(gsm);
@@ -25,6 +27,8 @@ public class PlayState extends State {
         // yDown set to false means our bottom-left part is 0,0
         cam.setToOrtho(false, FAAB.WIDTH >> 1, FAAB.HEIGHT >> 1);
         bg = new Texture("bg.png");
+
+        goodBall = new GoodBall(100);
 
         lastKey = -1;
 
@@ -108,6 +112,7 @@ public class PlayState extends State {
         sb.begin(); // open box up
         sb.draw(bg, cam.position.x - (cam.viewportWidth / 2), 0);
         sb.draw(bird.getTexture(), bird.getPosition().x, bird.getPosition().y);
+        sb.draw(goodBall.getTexture(), goodBall.getPosition().x, goodBall.getPosition().y);
         sb.end();
     }
 
