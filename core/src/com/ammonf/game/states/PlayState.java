@@ -43,7 +43,7 @@ public class PlayState extends State {
         bird = new Bird(25, 300); //Texture("bird-good1.png");
         // yDown set to false means our bottom-left part is 0,0
         cam.setToOrtho(false, FAAB.WIDTH >> 1, FAAB.HEIGHT >> 1);
-        bg = new Texture("bg.png");
+        bg = new Texture("bg-new.png");
 
         balls = new Array<Ball>();
         rand = new Random();
@@ -148,6 +148,10 @@ public class PlayState extends State {
         handleInput();
         bird.update(dt);
 
+
+
+        // If Ball outside of viewport on the left,
+        // make it reappear on the other side
         for (Ball ball : balls) {
             if (ball.isShown()) {
                 if (cam.position.x - (cam.viewportWidth / 2) > ball.getPosition().x +

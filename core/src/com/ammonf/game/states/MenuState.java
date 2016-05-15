@@ -16,7 +16,7 @@ public class MenuState extends State {
     public MenuState(GameStateManager gsm) {
         super(gsm); // Calls State constructor with gsm
 
-        background = new Texture("bg.png");
+        background = new Texture("bg-new.png");
         playButton = new Texture("play.png"); // Shortcut: Ctrl+D = dup line.
     }
 
