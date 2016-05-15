@@ -1,6 +1,7 @@
 package com.ammonf.game.states;
 
 import com.ammonf.game.FAAB;
+import com.ammonf.game.sprites.Ball;
 import com.ammonf.game.sprites.Bird;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -16,6 +17,7 @@ public class PlayState extends State {
     private Texture bg;
     private InputProcessor ip;
     private int lastKey;
+    //private Ball
 
     protected PlayState(GameStateManager gsm) {
         super(gsm);

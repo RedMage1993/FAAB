@@ -24,4 +24,12 @@ public abstract class Ball {
         // RNG between 0 (inclusive) and 3 (exclusive)
         position = new Vector2(x, LEVELS[rand.nextInt(3)]);
     }
+
+    public Texture getTexture() {
+        return ball;
+    }
+
+    public Vector2 getPosition() {
+        return position;
+    }
 }
