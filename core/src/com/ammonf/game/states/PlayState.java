@@ -147,7 +147,7 @@ public class PlayState extends State {
         handleInput();
         bird.update(dt);
 
-        cam.position.x = bird.getPosition().x + 80;
+        cam.position.x = bird.getPosition().x + 70;
 
         // If Ball outside of viewport on the left,
         // make it reappear on the other side
