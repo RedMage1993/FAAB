@@ -156,9 +156,9 @@ public class PlayState extends State {
                 ball.reposition(ball.getPosition().x + ((ball.getTexture().getWidth() + BALL_SPACING_HORI) * BALL_COUNT));
             }
 
-            if (ball.collides(bird.getBounds())) {
+            if (ball.collides(bird.getBounds()) && ball.getBallType() == Ball.BALL_TYPE.BAD) {
                 gsm.set(new PlayState(gsm));
-                break;
+                return;
             }
         }
 

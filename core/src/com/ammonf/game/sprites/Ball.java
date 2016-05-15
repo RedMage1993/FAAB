@@ -15,6 +15,9 @@ public abstract class Ball {
     private static final Integer LEVELS[] = {300, 355, 245};
     private static Array<Integer> nextBallLevel = new Array<Integer>();
 
+    public enum BALL_TYPE{GOOD, BAD};
+
+    private BALL_TYPE ballType;
     protected Texture ball;
     private Vector2 position;
     private Random rand;
@@ -24,15 +27,14 @@ public abstract class Ball {
 
     public static final int WIDTH = 30;
 
-    protected Ball(int x, String spritePath) {
+    protected Ball(int x, String spritePath, BALL_TYPE bt) {
+        ballType = bt;
         ball = new Texture(spritePath);
         rand = new Random(); // Used to set ball at random Y-axis
 
         // Choose a random location
         // RNG between 0 (inclusive) and 3 (exclusive)
         reposition(x);
-
-        bounds = new Rectangle(position.x, position.y, ball.getWidth(), ball.getHeight());
     }
 
     public Texture getTexture() {
@@ -57,10 +59,14 @@ public abstract class Ball {
         position = new Vector2(x, nextBallLevel.get(level));
         nextBallLevel.removeIndex(level);
 
-        bounds.setPosition(x, position.y);
+        bounds = new Rectangle(x, position.y, ball.getWidth(), ball.getHeight());
     }
 
     public boolean collides(Rectangle player) {
         return player.overlaps(bounds);
+    }
+
+    public BALL_TYPE getBallType() {
+        return ballType;
     }
 }

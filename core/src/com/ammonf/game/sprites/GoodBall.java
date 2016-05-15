@@ -5,7 +5,7 @@ package com.ammonf.game.sprites;
  */
 public class GoodBall extends Ball {
     public GoodBall(int x) {
-        super(x, "ball-good1.png");
+        super(x, "ball-good1.png", BALL_TYPE.GOOD);
     }
 
     // We may add some GoodBall specific methods or data below
