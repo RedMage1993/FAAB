@@ -2,6 +2,7 @@ package com.ammonf.game.sprites;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.Array;
 
 import java.util.Random;
 
@@ -10,8 +11,8 @@ import java.util.Random;
  */
 public abstract class Ball {
     // These are the possible locations for Ball
-    private static final int LEVELS[] = {300, 355, 245};
-    private static int nextBallLevel[] = {300, 355, 245};
+    private static final Integer LEVELS[] = {300, 355, 245};
+    private static Array<Integer> nextBallLevel;
 
     protected Texture ball;
     private Vector2 position;
@@ -36,10 +37,14 @@ public abstract class Ball {
     }
 
     public void reposition(int x) {
-        if (nextBallLevel.length == 0)
-            System.arraycopy(LEVELS, 0, nextBallLevel, 0, LEVELS.length);
+        if (nextBallLevel == null)
+            nextBallLevel = new Array<Integer>();
+        else if (nextBallLevel.size == 0) {
+            nextBallLevel.addAll(LEVELS);
+        }
 
-        level = rand.nextInt(nextBallLevel.length);
-        position = new Vector2(x, nextBallLevel[level]);
+        level = rand.nextInt(nextBallLevel.size);
+        position = new Vector2(x, nextBallLevel.get(level));
+        nextBallLevel.removeIndex(level);
     }
 }

@@ -26,7 +26,7 @@ public class PlayState extends State {
     //private GoodBall goodBall; // Will generate certain random placement of either this
     //private BadBall badBall; // or this but whatever it is, good or empty required.
 
-    
+
 
     protected PlayState(GameStateManager gsm) {
         super(gsm);
