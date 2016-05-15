@@ -2,6 +2,7 @@ package com.ammonf.game.sprites;
 
 import com.ammonf.game.FAAB;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
 
 /**
@@ -16,6 +17,7 @@ public class Bird  {
 
     private Vector3 position; // holds an x,y,z axis (only using xy)
     private Vector3 velocity;
+    private Rectangle bounds;
 
     private Texture bird;
 
@@ -29,6 +31,8 @@ public class Bird  {
         bird = new Texture("bird-good1.png");
 
         moving = false;
+
+        bounds = new Rectangle(x, y, bird.getWidth(), bird.getHeight());
     }
 
     // update to send delta time to bird class and allow calculations
@@ -44,19 +48,6 @@ public class Bird  {
             // To update the Bird's position
             position.add(0, velocity.y, 0);
 
-            // Apply bounds within viewport
-            // Formula for rate of 10 and friction of 1 is (((10 + 1) * 10) / 2)
-            // Calculated to be 55, so 300 + 55 = 355 is where we want to stay below
-            if (position.y > 355) {
-                position.y = 355;
-                stopMoving(); // Need to avoid input lag at boundaries
-                return;
-            } else if (position.y < 245) {
-                position.y = 245;
-                stopMoving();
-                return;
-            }
-
             // finish with velocity.scale(1/dt) to undo the dt effect.
             velocity.scl(1 / dt);
 
@@ -66,6 +57,19 @@ public class Bird  {
             // Cannot move, so skip to allowing new movement
             stopMoving();
         }
+
+        // Apply bounds within viewport
+        // Formula for rate of 10 and friction of 1 is (((10 + 1) * 10) / 2)
+        // Calculated to be 55, so 300 + 55 = 355 is where we want to stay below
+        if (position.y > 355) {
+            position.y = 355;
+            stopMoving(); // Need to avoid input lag at boundaries
+        } else if (position.y < 245) {
+            position.y = 245;
+            stopMoving();
+        }
+
+        bounds.setPosition(position.x, position.y);
 
         // apply friction
         if (velocity.y != 0) {
@@ -109,5 +113,9 @@ public class Bird  {
     private void stopMoving() {
         velocity.y = 0;
         moving = false;
+    }
+
+    public Rectangle getBounds() {
+        return bounds;
     }
 }

@@ -152,13 +152,13 @@ public class PlayState extends State {
         // If Ball outside of viewport on the left,
         // make it reappear on the other side
         for (Ball ball : balls) {
-            if (ball.isShown()) {
-                if (cam.position.x - (cam.viewportWidth / 2) > ball.getPosition().x +
-                        ball.getTexture().getWidth()) {
-                    ball.reposition(ball.getPosition().x +
-                            ((ball.getTexture().getWidth() + BALL_SPACING_HORI) * BALL_COUNT));
+            if (cam.position.x - (cam.viewportWidth / 2) > ball.getPosition().x + ball.getTexture().getWidth()) {
+                ball.reposition(ball.getPosition().x + ((ball.getTexture().getWidth() + BALL_SPACING_HORI) * BALL_COUNT));
+            }
 
-                }
+            if (ball.collides(bird.getBounds())) {
+                gsm.set(new PlayState(gsm));
+                break;
             }
         }
 

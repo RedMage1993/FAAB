@@ -1,6 +1,7 @@
 package com.ammonf.game.sprites;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 
@@ -19,6 +20,7 @@ public abstract class Ball {
     private Random rand;
     private int level;
     private boolean shown;
+    private Rectangle bounds;
 
     public static final int WIDTH = 30;
 
@@ -29,6 +31,8 @@ public abstract class Ball {
         // Choose a random location
         // RNG between 0 (inclusive) and 3 (exclusive)
         reposition(x);
+
+        bounds = new Rectangle(position.x, position.y, ball.getWidth(), ball.getHeight());
     }
 
     public Texture getTexture() {
@@ -52,5 +56,11 @@ public abstract class Ball {
         level = rand.nextInt(nextBallLevel.size);
         position = new Vector2(x, nextBallLevel.get(level));
         nextBallLevel.removeIndex(level);
+
+        bounds.setPosition(x, position.y);
+    }
+
+    public boolean collides(Rectangle player) {
+        return player.overlaps(bounds);
     }
 }
