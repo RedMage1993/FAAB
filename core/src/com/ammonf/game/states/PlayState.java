@@ -2,6 +2,7 @@ package com.ammonf.game.states;
 
 import com.ammonf.game.FAAB;
 import com.ammonf.game.sprites.BadBall;
+import com.ammonf.game.sprites.Ball;
 import com.ammonf.game.sprites.Bird;
 import com.ammonf.game.sprites.GoodBall;
 import com.badlogic.gdx.Gdx;
@@ -9,26 +10,33 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.utils.Array;
 
 /**
  * Created by Fritz on 5/12/2016.
  */
 public class PlayState extends State {
+    private static final int BALL_SPACING_HORI = 150; // space between Ball's x-axis
+    private static final int BALL_COUNT = 3; // max No. of Ball's at any given time
+
     private Bird bird;
     private Texture bg;
     private InputProcessor ip;
     private int lastKey;
-    private GoodBall goodBall; // Will generate certain random placement of either this
+    //private GoodBall goodBall; // Will generate certain random placement of either this
     //private BadBall badBall; // or this but whatever it is, good or empty required.
+
+    
 
     protected PlayState(GameStateManager gsm) {
         super(gsm);
+
         bird = new Bird(50, 300); //Texture("bird-good1.png");
         // yDown set to false means our bottom-left part is 0,0
         cam.setToOrtho(false, FAAB.WIDTH >> 1, FAAB.HEIGHT >> 1);
         bg = new Texture("bg.png");
 
-        goodBall = new GoodBall(100);
+        //goodBall = new GoodBall(100);
 
         lastKey = -1;
 
@@ -112,7 +120,7 @@ public class PlayState extends State {
         sb.begin(); // open box up
         sb.draw(bg, cam.position.x - (cam.viewportWidth / 2), 0);
         sb.draw(bird.getTexture(), bird.getPosition().x, bird.getPosition().y);
-        sb.draw(goodBall.getTexture(), goodBall.getPosition().x, goodBall.getPosition().y);
+        //sb.draw(goodBall.getTexture(), goodBall.getPosition().x, goodBall.getPosition().y);
         sb.end();
     }
 

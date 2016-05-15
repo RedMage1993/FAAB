@@ -11,18 +11,20 @@ import java.util.Random;
 public abstract class Ball {
     // These are the possible locations for Ball
     private static final int LEVELS[] = {300, 355, 245};
+    private static int nextBallLevel[] = {300, 355, 245};
 
     protected Texture ball;
     private Vector2 position;
     private Random rand;
+    private int level;
 
-    protected Ball(float x, String spritePath) {
+    protected Ball(int x, String spritePath) {
         ball = new Texture(spritePath);
         rand = new Random(); // Used to set ball at random Y-axis
 
         // Choose a random location
         // RNG between 0 (inclusive) and 3 (exclusive)
-        position = new Vector2(x, LEVELS[rand.nextInt(3)]);
+        reposition(x);
     }
 
     public Texture getTexture() {
@@ -34,6 +36,10 @@ public abstract class Ball {
     }
 
     public void reposition(int x) {
-        position.set(x, LEVELS[rand.nextInt(3)]);
+        if (nextBallLevel.length == 0)
+            System.arraycopy(LEVELS, 0, nextBallLevel, 0, LEVELS.length);
+
+        level = rand.nextInt(nextBallLevel.length);
+        position = new Vector2(x, nextBallLevel[level]);
     }
 }

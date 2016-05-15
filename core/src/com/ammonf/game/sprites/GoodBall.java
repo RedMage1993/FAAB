@@ -4,7 +4,7 @@ package com.ammonf.game.sprites;
  * Created by Fritz on 5/14/2016.
  */
 public class GoodBall extends Ball {
-    public GoodBall(float x) {
+    public GoodBall(int x) {
         super(x, "ball-good1.png");
     }
 
