@@ -25,7 +25,6 @@ public class MenuState extends State {
     public void handleInput() {
         if (Gdx.input.justTouched()) {
             gsm.set(new PlayState(gsm)); // put PlayState at top of stack
-            dispose(); // Not using background/playbutton so free them
         }
     }
 

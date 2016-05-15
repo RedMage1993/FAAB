@@ -18,7 +18,7 @@ public abstract class Ball {
     public enum BALL_TYPE{GOOD, BAD};
 
     private BALL_TYPE ballType;
-    protected Texture ball;
+    protected Texture ball; // Could be made static for Good/Bad balls
     private Vector2 position;
     private Random rand;
     private int level;
@@ -68,5 +68,9 @@ public abstract class Ball {
 
     public BALL_TYPE getBallType() {
         return ballType;
+    }
+
+    public void dispose() {
+        ball.dispose();
     }
 }

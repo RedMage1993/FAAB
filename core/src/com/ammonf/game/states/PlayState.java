@@ -187,6 +187,11 @@ public class PlayState extends State {
 
     @Override
     public void dispose() {
+        bg.dispose();
+        bird.dispose();
 
+        for (Ball ball : balls) {
+            ball.dispose();
+        }
     }
 }
