@@ -72,5 +72,12 @@ public abstract class Ball {
 
     public void dispose() {
         ball.dispose();
+
+        // Get rid of references
+        position = null;
+        rand = null;
+        bounds = null;
+
+        System.gc();
     }
 }

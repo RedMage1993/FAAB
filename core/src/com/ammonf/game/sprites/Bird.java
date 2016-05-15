@@ -121,5 +121,11 @@ public class Bird  {
 
     public void dispose() {
         bird.dispose();
+
+        position = null;
+        velocity = null;
+        bounds = null;
+
+        System.gc();
     }
 }

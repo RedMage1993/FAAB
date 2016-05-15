@@ -190,8 +190,15 @@ public class PlayState extends State {
         bg.dispose();
         bird.dispose();
 
-        for (Ball ball : balls) {
-            ball.dispose();
+        for (int i = balls.size - 1; i >= 0; i--) {
+            balls.get(i).dispose();
+            balls.removeIndex(i); // Lose reference of Ball
         }
+
+        balls = null;
+        ip = null;
+        rand = null;
+
+        System.gc(); // suggest garbage collect
     }
 }
