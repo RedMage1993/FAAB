@@ -101,12 +101,12 @@ public class Bird  {
     }
 
     public void ascend() {
-        velocity.y = 400;
+        velocity.y = 375;
         moving = true;
     }
 
     public void descend() {
-        velocity.y = -400;
+        velocity.y = -375;
         moving = true;
     }
 
