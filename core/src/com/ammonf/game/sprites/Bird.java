@@ -12,7 +12,7 @@ public class Bird  {
     // But for this game, we'll allow user to fly upwards
     // and also lower altitude
     // Only 3 different levels of altitude
-    private static final int MOVEMENT = 75;
+    private static final int MOVEMENT = 200;
 
     private Vector3 position; // holds an x,y,z axis (only using xy)
     private Vector3 velocity;
@@ -36,13 +36,13 @@ public class Bird  {
     public void update(float dt) {
         // Use velocity.add and velocity.scale to adjust velocity
         // Use dt to correct based on FPS on machine
-
+        position.add(MOVEMENT * dt, 0, 0);
         // Only allow movement if within bounds
         if ((velocity.y < 0 && position.y > 0) ||
                 (velocity.y > 0 && ((position.y + bird.getHeight()) < (FAAB.HEIGHT >> 1)))) {
             velocity.scl(dt);
             // To update the Bird's position
-            position.add(MOVEMENT * dt, velocity.y, 0);
+            position.add(0, velocity.y, 0);
 
             // Apply bounds within viewport
             // Formula for rate of 10 and friction of 1 is (((10 + 1) * 10) / 2)

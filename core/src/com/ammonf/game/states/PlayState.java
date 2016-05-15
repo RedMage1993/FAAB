@@ -18,9 +18,9 @@ import java.util.Random;
  * Created by Fritz on 5/12/2016.
  */
 public class PlayState extends State {
-    private static final int BALL_SPACING_HORI = 100; // space between Ball's x-axis
+    private static final int BALL_SPACING_HORI = 125; // space between Ball's x-axis
+    private static final int BALL_INIT_SPACING = 200;
     private static final int BALL_COUNT = 3; // max No. of vertical Ball's at any given time
-    private static final int BALL_START_X = 150;
 
     private Bird bird;
     private Texture bg;
@@ -29,6 +29,8 @@ public class PlayState extends State {
     //private GoodBall goodBall; // Will generate certain random placement of either this
     //private BadBall badBall; // or this but whatever it is, good or empty required.
     private Random rand;
+
+    private boolean goodBallAdded;
 
     // TODO: Create Balls as necessary
     // They will position themselves accordingly on the y-axis
@@ -40,7 +42,7 @@ public class PlayState extends State {
     protected PlayState(GameStateManager gsm) {
         super(gsm);
 
-        bird = new Bird(25, 300); //Texture("bird-good1.png");
+        bird = new Bird(50, 300); //Texture("bird-good1.png");
         // yDown set to false means our bottom-left part is 0,0
         cam.setToOrtho(false, FAAB.WIDTH >> 1, FAAB.HEIGHT >> 1);
         bg = new Texture("bg-new.png");
@@ -48,31 +50,28 @@ public class PlayState extends State {
         balls = new Array<Ball>();
         rand = new Random();
 
-        // One good ball required
-        balls.add(new GoodBall(BALL_START_X));
-        for (int j = 1; j < 3; j++) {
-            switch (rand.nextInt(2)) {
-                case 0:
-                    balls.add(new GoodBall(BALL_START_X));
-                    break;
-                case 1:
-                    balls.add(new BadBall(BALL_START_X));
-                    break;
-            }
-        }
-
-        // Generate the two other vertical line of balls
-        for (int i = 1; i < BALL_COUNT; i++) {
-            for (int j = 0; j < 3; j++) {
+        // Generate the balls here
+        // For every vertical line of Balls, a GoodBall must be present
+        for (int i = 0; i < BALL_COUNT; i++) {
+            goodBallAdded = false;
+            for (int j = 1; j < 3; j++) {
                 switch (rand.nextInt(2)) {
                     case 0:
-                        balls.add(new GoodBall(BALL_START_X + (i * BALL_SPACING_HORI)));
-                        break;
+                        if (!goodBallAdded) {
+                            balls.add(new GoodBall(BALL_INIT_SPACING + (i + 1) * (BALL_SPACING_HORI + Ball.WIDTH)));
+                            goodBallAdded = true;
+                            break;
+                        }
                     case 1:
-                        balls.add(new BadBall(BALL_START_X + (i * BALL_SPACING_HORI)));
+                        balls.add(new BadBall(BALL_INIT_SPACING + (i + 1) * (BALL_SPACING_HORI + Ball.WIDTH)));
                         break;
                 }
             }
+
+            if (!goodBallAdded)
+                balls.add(new GoodBall(BALL_INIT_SPACING + (i + 1) * (BALL_SPACING_HORI + Ball.WIDTH)));
+            else
+                balls.add(new BadBall(BALL_INIT_SPACING + (i + 1) * (BALL_SPACING_HORI + Ball.WIDTH)));
         }
 
         lastKey = -1;
@@ -148,7 +147,7 @@ public class PlayState extends State {
         handleInput();
         bird.update(dt);
 
-
+        cam.position.x = bird.getPosition().x + 80;
 
         // If Ball outside of viewport on the left,
         // make it reappear on the other side
@@ -162,6 +161,8 @@ public class PlayState extends State {
                 }
             }
         }
+
+        cam.update();
     }
 
     @Override

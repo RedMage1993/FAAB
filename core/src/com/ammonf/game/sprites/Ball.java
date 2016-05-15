@@ -20,6 +20,8 @@ public abstract class Ball {
     private int level;
     private boolean shown;
 
+    public static final int WIDTH = 30;
+
     protected Ball(int x, String spritePath) {
         ball = new Texture(spritePath);
         rand = new Random(); // Used to set ball at random Y-axis
