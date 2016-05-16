@@ -15,6 +15,7 @@ public class MenuState extends State {
     // protected -> public
     public MenuState(GameStateManager gsm) {
         super(gsm); // Calls State constructor with gsm
+        cam.setToOrtho(false, FAAB.WIDTH, FAAB.HEIGHT);
 
         background = new Texture("bg-new.png");
         playButton = new Texture("play.png"); // Shortcut: Ctrl+D = dup line.
@@ -35,6 +36,7 @@ public class MenuState extends State {
 
     @Override
     public void render(SpriteBatch sb) {
+        sb.setProjectionMatrix(cam.combined);
         sb.begin(); // Open box up
 
         // Drawing begins from bottom-left

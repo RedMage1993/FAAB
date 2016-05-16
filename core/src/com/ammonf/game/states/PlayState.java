@@ -43,8 +43,6 @@ public class PlayState extends State {
 
     private Music music;
     private Sound goodBallCollision;
-    private Sound badBallCollision;
-
     private Ball collided;
 
     protected PlayState(GameStateManager gsm) {
@@ -137,7 +135,6 @@ public class PlayState extends State {
         music.play();
 
         goodBallCollision = Gdx.audio.newSound(Gdx.files.internal("good.wav"));
-        badBallCollision = Gdx.audio.newSound(Gdx.files.internal("bad.wav"));
     }
 
     @Override
@@ -175,11 +172,12 @@ public class PlayState extends State {
             if (collided != ball && ball.collides(bird.getBounds())) {
                 collided = ball;
                 if (ball.getBallType() == Ball.BALL_TYPE.BAD) {
-                    badBallCollision.play();
-                    gsm.set(new PlayState(gsm));
+                    music.stop();
+
+                    gsm.set(new MenuState(gsm));
                     return;
                 } else {
-                    goodBallCollision.play();
+                    goodBallCollision.setVolume(goodBallCollision.play(), 0.30f);
                 }
             }
         }
@@ -223,6 +221,5 @@ public class PlayState extends State {
 
         music.dispose();
         goodBallCollision.dispose();
-        badBallCollision.dispose();
     }
 }
