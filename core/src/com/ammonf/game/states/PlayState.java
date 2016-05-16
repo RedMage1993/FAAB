@@ -9,6 +9,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
@@ -41,6 +42,10 @@ public class PlayState extends State {
     private Array<Ball> balls;
 
     private Music music;
+    private Sound goodBallCollision;
+    private Sound badBallCollision;
+
+    private Ball collided;
 
     protected PlayState(GameStateManager gsm) {
         super(gsm);
@@ -130,6 +135,9 @@ public class PlayState extends State {
         music.setLooping(true);
         //music.setVolume(0.1f);
         music.play();
+
+        goodBallCollision = Gdx.audio.newSound(Gdx.files.internal("good.wav"));
+        badBallCollision = Gdx.audio.newSound(Gdx.files.internal("bad.wav"));
     }
 
     @Override
@@ -164,9 +172,15 @@ public class PlayState extends State {
                 ball.reposition(ball.getPosition().x + ((ball.getTexture().getWidth() + BALL_SPACING_HORI) * BALL_COUNT));
             }
 
-            if (ball.collides(bird.getBounds()) && ball.getBallType() == Ball.BALL_TYPE.BAD) {
-                gsm.set(new PlayState(gsm));
-                return;
+            if (collided != ball && ball.collides(bird.getBounds())) {
+                collided = ball;
+                if (ball.getBallType() == Ball.BALL_TYPE.BAD) {
+                    badBallCollision.play();
+                    gsm.set(new PlayState(gsm));
+                    return;
+                } else {
+                    goodBallCollision.play();
+                }
             }
         }
 
@@ -208,5 +222,7 @@ public class PlayState extends State {
         rand = null;
 
         music.dispose();
+        goodBallCollision.dispose();
+        badBallCollision.dispose();
     }
 }
