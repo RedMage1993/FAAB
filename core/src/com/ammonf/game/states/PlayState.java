@@ -8,6 +8,7 @@ import com.ammonf.game.sprites.GoodBall;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
@@ -38,6 +39,8 @@ public class PlayState extends State {
     // The the next two can be GoodBall or BadBall, shown/hidden
     // Repeat that BALL_COUNT times but push the x position with BALL_SPACING_HORI
     private Array<Ball> balls;
+
+    private Music music;
 
     protected PlayState(GameStateManager gsm) {
         super(gsm);
@@ -122,6 +125,11 @@ public class PlayState extends State {
         };
 
         Gdx.input.setInputProcessor(ip);
+
+        music = Gdx.audio.newMusic(Gdx.files.internal("bg-music.mp3"));
+        music.setLooping(true);
+        //music.setVolume(0.1f);
+        music.play();
     }
 
     @Override
@@ -198,5 +206,7 @@ public class PlayState extends State {
         balls = null;
         ip = null;
         rand = null;
+
+        music.dispose();
     }
 }
