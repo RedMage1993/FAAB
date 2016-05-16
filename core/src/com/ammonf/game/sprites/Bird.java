@@ -14,7 +14,7 @@ public class Bird  {
     // But for this game, we'll allow user to fly upwards
     // and also lower altitude
     // Only 3 different levels of altitude
-    private static final int MOVEMENT = 190;
+    private static final int MOVEMENT = 187;
 
     private Vector3 position; // holds an x,y,z axis (only using xy)
     private Vector3 velocity;

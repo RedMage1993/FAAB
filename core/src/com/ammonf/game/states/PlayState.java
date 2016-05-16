@@ -169,15 +169,24 @@ public class PlayState extends State {
                 ball.reposition(ball.getPosition().x + ((ball.getTexture().getWidth() + BALL_SPACING_HORI) * BALL_COUNT));
             }
 
-            if (collided != ball && ball.collides(bird.getBounds())) {
-                collided = ball;
-                if (ball.getBallType() == Ball.BALL_TYPE.BAD) {
-                    music.stop();
+            // Don't allow to run into bad ball if good ball already hit
+            if (collided != null) {
+                if (bird.getPosition().x > ball.getPosition().x + ball.getTexture().getWidth())
+                    collided = null;
+            }
 
-                    gsm.set(new MenuState(gsm));
-                    return;
-                } else {
-                    goodBallCollision.setVolume(goodBallCollision.play(), 0.30f);
+            if (collided == null) {
+                if (ball.collides(bird.getBounds())) {
+                    collided = ball;
+                    if (ball.getBallType() == Ball.BALL_TYPE.BAD) {
+                        music.stop();
+
+                        gsm.set(new MenuState(gsm));
+                        // collided will be null again
+                        return;
+                    } else {
+                        goodBallCollision.setVolume(goodBallCollision.play(), 0.30f);
+                    }
                 }
             }
         }
