@@ -21,7 +21,7 @@ import java.util.Random;
  */
 public class PlayState extends State {
     private static final int BALL_SPACING_HORI = 125; // space between Ball's x-axis
-    private static final int BALL_INIT_SPACING = 200;
+    private static final int BALL_INIT_SPACING = 275;
     private static final int BALL_COUNT = 3; // max No. of vertical Ball's at any given time
 
     private Bird bird;
